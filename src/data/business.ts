@@ -2,8 +2,8 @@ export const business = {
   name: "San Antonio Decking Pros",
   shortName: "Decking Pros",
   tagline: "Custom Decks Built for Texas Living",
-  phone: "(210) 555-3825",
-  phoneHref: "tel:+12105553825",
+  phone: "(210) 750-4428",
+  phoneHref: "tel:+12107504428",
   email: "info@sanantoniodeckingpros.com",
   address: {
     street: "1102 S Flores St",
