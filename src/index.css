@@ -1,0 +1,201 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Palette: light blue / white / grey with a bright contrasting accent */
+  --color-navy: #3E6B99; /* primary lighter blue - nav, hero backgrounds */
+  --color-navy-dark: #16283A; /* deep blue-grey - footer */
+  --color-gold: #FF6A3D; /* bright contrasting accent - buttons, links */
+  --color-gold-lt: #FF8A61; /* accent hover state */
+  --color-cream: #F4F6F8; /* alternate light grey-blue section background */
+  --color-white: #FFFFFF;
+  --color-charcoal: #2B3138; /* body text */
+  --color-mid: #626B74; /* secondary / muted text */
+  --color-rule: #D7DEE4; /* borders, dividers */
+  --color-section-alt: #E9EDF1; /* subtle alternate sections */
+
+  --font-heading: 'Oswald', Arial Narrow, sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-body: 'Lato', system-ui, -apple-system, sans-serif;
+
+  --header-height: 72px;
+}
+
+@media (max-width: 640px) {
+  :root {
+    --header-height: 60px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-charcoal);
+  background: var(--color-white);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-navy);
+  margin: 0;
+}
+
+h1 {
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+h2 {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+}
+
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  text-transform: none;
+}
+
+p {
+  font-family: var(--font-body);
+  line-height: 1.75;
+  color: var(--color-charcoal);
+}
+
+a {
+  color: var(--color-gold);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-gold-lt);
+}
+
+.section {
+  padding: 80px 0;
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding: 48px 0;
+  }
+}
+
+.container-page {
+  width: 100%;
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary,
+.btn-outline-navy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 14px;
+  padding: 14px 32px;
+  border-radius: 2px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn-primary {
+  background: var(--color-gold);
+  color: var(--color-white);
+  border-color: var(--color-gold);
+}
+
+.btn-primary:hover {
+  background: var(--color-gold-lt);
+  border-color: var(--color-gold-lt);
+  color: var(--color-white);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.btn-secondary:hover {
+  background: var(--color-white);
+  color: var(--color-navy);
+}
+
+.btn-outline-navy {
+  background: transparent;
+  color: var(--color-navy);
+  border-color: var(--color-navy);
+}
+
+.btn-outline-navy:hover {
+  background: var(--color-navy);
+  color: var(--color-white);
+}
+
+/* Scroll fade-up animation */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.fade-up.visible {
+  animation: fadeUp 0.5s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Page transition loader bar */
+@keyframes loaderSlide {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.page-loader-bar {
+  animation: loaderSlide 1.1s ease-in-out infinite;
+}
