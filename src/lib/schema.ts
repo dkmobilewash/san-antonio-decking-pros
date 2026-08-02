@@ -69,6 +69,26 @@ export function serviceAreaSchema(area: ServiceArea) {
   };
 }
 
+export function serviceAreaComboSchema(service: Service, area: ServiceArea) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: service.name,
+    name: `${service.name} in ${area.name}, TX`,
+    description: `${service.description} Serving ${area.name}, TX.`,
+    provider: {
+      "@type": "HomeAndConstructionBusiness",
+      name: business.name,
+      telephone: business.phone,
+      address: fullAddress,
+    },
+    areaServed: {
+      "@type": "Place",
+      name: `${area.name}, TX`,
+    },
+  };
+}
+
 export function blogPostingSchema(post: BlogPost) {
   return {
     "@context": "https://schema.org",

@@ -27,6 +27,7 @@ const Helotes = lazy(() => import("./pages/serviceAreas/Helotes"));
 const Converse = lazy(() => import("./pages/serviceAreas/Converse"));
 const LiveOak = lazy(() => import("./pages/serviceAreas/LiveOak"));
 const UniversalCity = lazy(() => import("./pages/serviceAreas/UniversalCity"));
+const ServiceAreaComboPage = lazy(() => import("./pages/combos/ServiceAreaComboPage"));
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -82,6 +83,8 @@ function App() {
         <Route path="/service-areas/converse" element={<Converse />} />
         <Route path="/service-areas/live-oak" element={<LiveOak />} />
         <Route path="/service-areas/universal-city" element={<UniversalCity />} />
+
+        <Route path="/:serviceSlug/:areaSlug" element={<ServiceAreaComboPage />} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

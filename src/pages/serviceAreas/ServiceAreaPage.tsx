@@ -29,6 +29,7 @@ export default function ServiceAreaPage({ area }: ServiceAreaPageProps) {
   const servicesRef = useFadeUp<HTMLDivElement>();
   const processRef = useFadeUp<HTMLDivElement>();
   const faqRef = useFadeUp<HTMLDivElement>();
+  const allServicesRef = useFadeUp<HTMLDivElement>();
 
   const topServices = services.filter((service) => area.topServices.includes(service.name));
 
@@ -98,7 +99,7 @@ export default function ServiceAreaPage({ area }: ServiceAreaPageProps) {
                   key={service.slug}
                   title={service.shortName}
                   description={service.description}
-                  href={`/${service.slug}`}
+                  href={`/${service.slug}/${area.slug}`}
                 />
               ))}
             </div>
@@ -123,6 +124,28 @@ export default function ServiceAreaPage({ area }: ServiceAreaPageProps) {
             <SectionEyebrow eyebrow="Common Questions" heading="Frequently Asked Questions" align="center" />
             <div className="mt-10">
               <FaqAccordion items={faqs} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section bg-white">
+        <div className="container-page">
+          <div ref={allServicesRef} className="fade-up">
+            <SectionEyebrow
+              eyebrow="Full Service List"
+              heading={`Every Service We Offer in ${area.name}`}
+              align="center"
+            />
+            <div className="mt-10 grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
+              {services.map((service) => (
+                <ServiceCard
+                  key={service.slug}
+                  title={service.shortName}
+                  description={service.description}
+                  href={`/${service.slug}/${area.slug}`}
+                />
+              ))}
             </div>
           </div>
         </div>

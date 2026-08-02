@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PageMeta from "../../components/PageMeta";
 import PageHero from "../../components/PageHero";
 import SectionEyebrow from "../../components/SectionEyebrow";
@@ -8,6 +9,7 @@ import YouMayAlsoNeed from "../../components/YouMayAlsoNeed";
 import DeckImagePlaceholder from "../../components/DeckImagePlaceholder";
 import { business } from "../../data/business";
 import type { Service } from "../../data/services";
+import { serviceAreas } from "../../data/serviceAreas";
 import { useFadeUp } from "../../hooks/useFadeUp";
 import { serviceSchema } from "../../lib/schema";
 
@@ -19,6 +21,7 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const introRef = useFadeUp<HTMLDivElement>();
   const processRef = useFadeUp<HTMLDivElement>();
   const faqRef = useFadeUp<HTMLDivElement>();
+  const areasRef = useFadeUp<HTMLDivElement>();
 
   return (
     <>
@@ -86,6 +89,29 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
             <SectionEyebrow eyebrow="Common Questions" heading="Frequently Asked Questions" align="center" />
             <div className="mt-10">
               <FaqAccordion items={service.faqs.map((faq) => ({ question: faq.question, answer: faq.answer }))} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section bg-section-alt">
+        <div className="container-page">
+          <div ref={areasRef} className="fade-up">
+            <SectionEyebrow
+              eyebrow="Where We Build"
+              heading={`Areas We Offer ${service.shortName} In`}
+              align="center"
+            />
+            <div className="mt-8 flex flex-wrap justify-center gap-3">
+              {serviceAreas.map((area) => (
+                <Link
+                  key={area.slug}
+                  to={`/${service.slug}/${area.slug}`}
+                  className="px-5 py-2.5 bg-white border border-rule rounded-full text-sm font-heading font-semibold uppercase tracking-wide text-navy hover:border-gold hover:text-gold transition-colors"
+                >
+                  {area.name}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
