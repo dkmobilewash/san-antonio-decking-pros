@@ -5,7 +5,9 @@ import CtaSection from "../components/CtaSection";
 import { business } from "../data/business";
 import { serviceAreas } from "../data/serviceAreas";
 import { useFadeUp } from "../hooks/useFadeUp";
-import { localBusinessSchema } from "../lib/schema";
+import { localBusinessSchema, breadcrumbListSchema } from "../lib/schema";
+
+const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Service Areas" }];
 
 export default function ServiceAreasIndex() {
   const gridRef = useFadeUp<HTMLDivElement>();
@@ -16,12 +18,12 @@ export default function ServiceAreasIndex() {
         title={`Service Areas | ${business.name}`}
         description="San Antonio Decking Pros builds and repairs decks throughout the San Antonio metro, including Alamo Heights, Stone Oak, Boerne, New Braunfels, and more."
         path="/service-areas"
-        schema={localBusinessSchema()}
+        schema={[localBusinessSchema(), breadcrumbListSchema(breadcrumbItems, "/service-areas")]}
       />
       <PageHero
         title="Service Areas"
         subtitle="We build and repair decks throughout the San Antonio metro. Find local details for your neighborhood below."
-        breadcrumbItems={[{ label: "Home", href: "/" }, { label: "Service Areas" }]}
+        breadcrumbItems={breadcrumbItems}
       />
 
       <section className="section bg-white">

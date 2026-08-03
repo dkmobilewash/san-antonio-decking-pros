@@ -9,7 +9,7 @@ import DeckImagePlaceholder from "../components/DeckImagePlaceholder";
 import { business } from "../data/business";
 import { services } from "../data/services";
 import { useFadeUp } from "../hooks/useFadeUp";
-import { localBusinessSchema } from "../lib/schema";
+import { localBusinessSchema, faqPageSchema, breadcrumbListSchema } from "../lib/schema";
 
 const process = [
   { title: "Consult", description: "We assess your space, discuss goals, and recommend the right service for your project." },
@@ -36,6 +36,8 @@ const faqs = [
   },
 ];
 
+const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Services" }];
+
 export default function ServicesOverview() {
   const introRef = useFadeUp<HTMLDivElement>();
   const gridRef = useFadeUp<HTMLDivElement>();
@@ -48,12 +50,16 @@ export default function ServicesOverview() {
         title={`Decking Services San Antonio | ${business.name}`}
         description="Explore all of San Antonio Decking Pros' services — custom deck design and installation, repair, staining, composite decking, pool decks, and screened porches."
         path="/decking-services"
-        schema={localBusinessSchema()}
+        schema={[
+          localBusinessSchema(),
+          faqPageSchema(faqs),
+          breadcrumbListSchema(breadcrumbItems, "/decking-services"),
+        ]}
       />
       <PageHero
         title="Decking Services"
         subtitle="Everything we build, repair, and maintain for San Antonio homeowners — under one licensed, insured company."
-        breadcrumbItems={[{ label: "Home", href: "/" }, { label: "Services" }]}
+        breadcrumbItems={breadcrumbItems}
       />
 
       <section className="section bg-white">

@@ -8,9 +8,9 @@ import DeckImagePlaceholder from "../../components/DeckImagePlaceholder";
 import { Link } from "react-router-dom";
 import { business } from "../../data/business";
 import { services } from "../../data/services";
-import type { ServiceArea } from "../../data/serviceAreas";
+import { serviceAreas, type ServiceArea } from "../../data/serviceAreas";
 import { useFadeUp } from "../../hooks/useFadeUp";
-import { serviceAreaSchema } from "../../lib/schema";
+import { serviceAreaSchema, faqPageSchema, breadcrumbListSchema } from "../../lib/schema";
 
 interface ServiceAreaPageProps {
   area: ServiceArea;
@@ -21,7 +21,16 @@ export default function ServiceAreaPage({ area }: ServiceAreaPageProps) {
   const caseStudiesRef = useFadeUp<HTMLDivElement>();
   const whyNumberOneRef = useFadeUp<HTMLDivElement>();
   const servicesRef = useFadeUp<HTMLDivElement>();
+  const exploreMoreRef = useFadeUp<HTMLDivElement>();
   const faqRef = useFadeUp<HTMLDivElement>();
+
+  const nearbyAreas = serviceAreas.filter((otherArea) => otherArea.slug !== area.slug);
+
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "Service Areas", href: "/service-areas" },
+    { label: area.name },
+  ];
 
   return (
     <>
@@ -29,16 +38,16 @@ export default function ServiceAreaPage({ area }: ServiceAreaPageProps) {
         title={`Deck Builder ${area.name}, TX | ${business.name}`}
         description={`${business.name} builds and repairs custom decks in ${area.name}, TX. ${area.tagline}. Free estimates.`}
         path={`/service-areas/${area.slug}`}
-        schema={serviceAreaSchema(area)}
+        schema={[
+          serviceAreaSchema(area),
+          faqPageSchema(area.faqs),
+          breadcrumbListSchema(breadcrumbItems, `/service-areas/${area.slug}`),
+        ]}
       />
       <PageHero
         title={`Deck Builders in ${area.name}, TX`}
         subtitle={area.tagline}
-        breadcrumbItems={[
-          { label: "Home", href: "/" },
-          { label: "Service Areas", href: "/service-areas" },
-          { label: area.name },
-        ]}
+        breadcrumbItems={breadcrumbItems}
       />
 
       {/* About decking in this area */}
@@ -139,8 +148,42 @@ export default function ServiceAreaPage({ area }: ServiceAreaPageProps) {
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* Explore more: parent service pages + nearby areas */}
       <section className="section bg-white">
+        <div className="container-page">
+          <div ref={exploreMoreRef} className="fade-up grid gap-10 md:grid-cols-2">
+            <div>
+              <h3 className="text-navy">Learn More About Our Services</h3>
+              <ul className="mt-4 space-y-2.5">
+                {services.map((service) => (
+                  <li key={service.slug}>
+                    <Link to={`/${service.slug}`} className="text-gold hover:text-gold-lt font-semibold">
+                      {service.shortName} &rarr;
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-navy">Nearby Service Areas</h3>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {nearbyAreas.map((nearbyArea) => (
+                  <Link
+                    key={nearbyArea.slug}
+                    to={`/service-areas/${nearbyArea.slug}`}
+                    className="px-4 py-2 bg-cream border border-rule rounded-full text-sm font-heading font-semibold uppercase tracking-wide text-navy hover:border-gold hover:text-gold transition-colors"
+                  >
+                    {nearbyArea.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section bg-cream">
         <div className="container-page max-w-3xl">
           <div ref={faqRef} className="fade-up">
             <SectionEyebrow eyebrow="Common Questions" heading="Frequently Asked Questions" align="center" />

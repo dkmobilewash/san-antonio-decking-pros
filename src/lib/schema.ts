@@ -3,6 +3,7 @@ import type { Service } from "../data/services";
 import type { ServiceArea } from "../data/serviceAreas";
 import type { BlogPost } from "../data/blogPosts";
 import type { FaqItem } from "../components/FaqAccordion";
+import type { BreadcrumbItem } from "../components/Breadcrumb";
 
 export function localBusinessSchema() {
   return {
@@ -95,6 +96,7 @@ export function blogPostingSchema(post: BlogPost) {
     "@type": "BlogPosting",
     headline: post.title,
     description: post.excerpt,
+    image: business.ogImage,
     datePublished: post.date,
     author: {
       "@type": "Organization",
@@ -122,6 +124,19 @@ export function faqPageSchema(faqs: FaqItem[]) {
         "@type": "Answer",
         text: faq.answer,
       },
+    })),
+  };
+}
+
+export function breadcrumbListSchema(items: BreadcrumbItem[], currentPath: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.label,
+      item: `${business.baseUrl}${item.href ?? currentPath}`,
     })),
   };
 }

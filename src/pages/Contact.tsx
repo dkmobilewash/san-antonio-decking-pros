@@ -7,7 +7,7 @@ import { business, fullAddress } from "../data/business";
 import { services } from "../data/services";
 import { supabase } from "../lib/supabase";
 import { useFadeUp } from "../hooks/useFadeUp";
-import { localBusinessSchema } from "../lib/schema";
+import { localBusinessSchema, faqPageSchema, breadcrumbListSchema } from "../lib/schema";
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
@@ -29,6 +29,8 @@ const faqs = [
 ];
 
 const trustBadges = ["Licensed & Insured", "Free Estimates", "Custom Designs"];
+
+const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Free Estimate" }];
 
 export default function Contact() {
   const [status, setStatus] = useState<SubmitStatus>("idle");
@@ -77,12 +79,16 @@ export default function Contact() {
         title={`Free Deck Estimate San Antonio | ${business.name}`}
         description="Request a free, no-obligation deck estimate from San Antonio Decking Pros. Licensed, insured, and locally owned."
         path="/free-estimate-san-antonio"
-        schema={localBusinessSchema()}
+        schema={[
+          localBusinessSchema(),
+          faqPageSchema(faqs),
+          breadcrumbListSchema(breadcrumbItems, "/free-estimate-san-antonio"),
+        ]}
       />
       <PageHero
         title="Get a Free Estimate"
         subtitle="Tell us about your project and we'll follow up to schedule a free in-person consultation."
-        breadcrumbItems={[{ label: "Home", href: "/" }, { label: "Free Estimate" }]}
+        breadcrumbItems={breadcrumbItems}
       />
 
       <section className="section bg-white">

@@ -1,11 +1,12 @@
-import { Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import PageMeta from "../components/PageMeta";
 import PageHero from "../components/PageHero";
 import CtaSection from "../components/CtaSection";
 import { business } from "../data/business";
 import { getBlogPostBySlug, type BlogSection } from "../data/blogPosts";
+import { getServiceBySlug } from "../data/services";
 import { useFadeUp } from "../hooks/useFadeUp";
-import { blogPostingSchema } from "../lib/schema";
+import { blogPostingSchema, breadcrumbListSchema } from "../lib/schema";
 
 function formatDate(dateString: string) {
   return new Date(`${dateString}T00:00:00`).toLocaleDateString("en-US", {
@@ -76,28 +77,50 @@ export default function BlogPost() {
     return <Navigate to="/blog" replace />;
   }
 
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "Blog", href: "/blog" },
+    { label: post.title },
+  ];
+
   return (
     <>
       <PageMeta
         title={`${post.title} | ${business.name} Blog`}
         description={post.excerpt}
         path={`/blog/${post.slug}`}
-        schema={blogPostingSchema(post)}
+        ogType="article"
+        schema={[blogPostingSchema(post), breadcrumbListSchema(breadcrumbItems, `/blog/${post.slug}`)]}
       />
       <PageHero
         title={post.title}
         subtitle={`${post.tag} · ${formatDate(post.date)} · ${post.readTime}`}
-        breadcrumbItems={[
-          { label: "Home", href: "/" },
-          { label: "Blog", href: "/blog" },
-          { label: post.title },
-        ]}
+        breadcrumbItems={breadcrumbItems}
       />
 
       <section className="section bg-white">
         <div className="container-page max-w-3xl">
           <div ref={contentRef} className="fade-up">
             {post.content.map((section, index) => renderSection(section, index))}
+
+            {post.relatedServiceSlugs.length > 0 && (
+              <div className="mt-10 bg-cream border border-rule rounded-sm p-6">
+                <h3 className="text-navy">Related Services</h3>
+                <ul className="mt-4 space-y-2">
+                  {post.relatedServiceSlugs.map((slug) => {
+                    const service = getServiceBySlug(slug);
+                    if (!service) return null;
+                    return (
+                      <li key={slug}>
+                        <Link to={`/${service.slug}`} className="text-gold hover:text-gold-lt font-semibold">
+                          {service.shortName} &rarr;
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </section>

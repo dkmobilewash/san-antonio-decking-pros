@@ -25,7 +25,7 @@ export default function Breadcrumb({ items }: BreadcrumbProps) {
                     {item.label}
                   </Link>
                 )}
-                {!isLast && <span className="text-mid">&rsaquo;</span>}
+                {!isLast && <span className="text-mid">{"›"}</span>}
               </li>
             );
           })}
