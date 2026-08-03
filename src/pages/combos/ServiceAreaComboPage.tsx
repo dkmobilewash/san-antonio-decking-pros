@@ -11,7 +11,7 @@ import { business } from "../../data/business";
 import { services, getServiceBySlug } from "../../data/services";
 import { serviceAreas, getServiceAreaBySlug } from "../../data/serviceAreas";
 import { useFadeUp } from "../../hooks/useFadeUp";
-import { serviceAreaComboSchema } from "../../lib/schema";
+import { serviceAreaComboSchema, faqPageSchema, breadcrumbListSchema } from "../../lib/schema";
 
 export default function ServiceAreaComboPage() {
   const { serviceSlug, areaSlug } = useParams<{ serviceSlug: string; areaSlug: string }>();
@@ -43,22 +43,28 @@ export default function ServiceAreaComboPage() {
   const otherServices = services.filter((s) => s.slug !== service.slug);
   const otherAreas = serviceAreas.filter((a) => a.slug !== area.slug);
 
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: service.shortName, href: `/${service.slug}` },
+    { label: area.name },
+  ];
+
   return (
     <>
       <PageMeta
         title={`${service.shortName} in ${area.name}, TX | ${business.name}`}
         description={`${service.description} Serving homeowners in ${area.name}, TX. Free estimates from a licensed San Antonio deck builder.`}
         path={`/${service.slug}/${area.slug}`}
-        schema={serviceAreaComboSchema(service, area)}
+        schema={[
+          serviceAreaComboSchema(service, area),
+          faqPageSchema(faqs),
+          breadcrumbListSchema(breadcrumbItems, `/${service.slug}/${area.slug}`),
+        ]}
       />
       <PageHero
         title={`${service.shortName} in ${area.name}, TX`}
         subtitle={`Licensed ${service.shortName.toLowerCase()} for homeowners in ${area.name} — built by a crew that knows the local terrain and permitting.`}
-        breadcrumbItems={[
-          { label: "Home", href: "/" },
-          { label: service.shortName, href: `/${service.slug}` },
-          { label: area.name },
-        ]}
+        breadcrumbItems={breadcrumbItems}
       />
 
       <section className="section bg-white">

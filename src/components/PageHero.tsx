@@ -14,13 +14,13 @@ export default function PageHero({
   subtitle,
   breadcrumbItems,
   children,
-  gradient = "linear-gradient(135deg, var(--color-navy) 0%, #2A4E70 100%)",
+  gradient,
 }: PageHeroProps) {
   return (
     <>
       <section
-        className="relative text-white"
-        style={{ background: gradient }}
+        className={`relative text-white ${gradient ? "" : "page-hero-gradient"}`}
+        style={gradient ? { background: gradient } : undefined}
       >
         <div className="container-page py-16 md:py-24 text-center">
           <h1 className="text-white">{title}</h1>

@@ -8,7 +8,7 @@ import YouMayAlsoNeed from "../components/YouMayAlsoNeed";
 import DeckImagePlaceholder from "../components/DeckImagePlaceholder";
 import { business, fullAddress } from "../data/business";
 import { useFadeUp } from "../hooks/useFadeUp";
-import { localBusinessSchema } from "../lib/schema";
+import { localBusinessSchema, faqPageSchema, breadcrumbListSchema } from "../lib/schema";
 
 const process = [
   { title: "We Listen", description: "Every project starts with understanding how you actually want to use the space." },
@@ -41,6 +41,8 @@ const faqs = [
   },
 ];
 
+const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "About" }];
+
 export default function About() {
   const introRef = useFadeUp<HTMLDivElement>();
   const processRef = useFadeUp<HTMLDivElement>();
@@ -52,12 +54,16 @@ export default function About() {
         title={`About Us | ${business.name}`}
         description={`Learn about ${business.name} — a licensed, insured deck building company serving San Antonio, TX since ${business.founded}.`}
         path="/about-san-antonio-decking-pros"
-        schema={localBusinessSchema()}
+        schema={[
+          localBusinessSchema(),
+          faqPageSchema(faqs),
+          breadcrumbListSchema(breadcrumbItems, "/about-san-antonio-decking-pros"),
+        ]}
       />
       <PageHero
         title="About San Antonio Decking Pros"
         subtitle="A locally owned deck building company that's spent nearly two decades learning what actually holds up in South Texas."
-        breadcrumbItems={[{ label: "Home", href: "/" }, { label: "About" }]}
+        breadcrumbItems={breadcrumbItems}
       />
 
       <section className="section bg-white">

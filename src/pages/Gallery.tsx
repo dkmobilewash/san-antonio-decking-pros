@@ -5,7 +5,7 @@ import CtaSection from "../components/CtaSection";
 import DeckImagePlaceholder from "../components/DeckImagePlaceholder";
 import { business } from "../data/business";
 import { useFadeUp } from "../hooks/useFadeUp";
-import { localBusinessSchema } from "../lib/schema";
+import { localBusinessSchema, breadcrumbListSchema } from "../lib/schema";
 
 interface GalleryItem {
   label: string;
@@ -29,6 +29,8 @@ const galleryItems: GalleryItem[] = [
 
 const categories = ["All", "Wood Decks", "Composite Decking", "Pool Decks", "Screened Porches"];
 
+const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Gallery" }];
+
 export default function Gallery() {
   const [activeCategory, setActiveCategory] = useState("All");
   const gridRef = useFadeUp<HTMLDivElement>();
@@ -47,12 +49,12 @@ export default function Gallery() {
         title={`Deck Photo Gallery | ${business.name}`}
         description="Browse completed wood deck, composite deck, pool deck, and screened porch projects built by San Antonio Decking Pros across the San Antonio metro."
         path="/gallery"
-        schema={localBusinessSchema()}
+        schema={[localBusinessSchema(), breadcrumbListSchema(breadcrumbItems, "/gallery")]}
       />
       <PageHero
         title="Project Gallery"
         subtitle="A sample of decks, pool surrounds, and outdoor structures we've built across the San Antonio metro."
-        breadcrumbItems={[{ label: "Home", href: "/" }, { label: "Gallery" }]}
+        breadcrumbItems={breadcrumbItems}
       />
 
       <section className="section bg-white">

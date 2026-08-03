@@ -11,7 +11,7 @@ import { business } from "../../data/business";
 import type { Service } from "../../data/services";
 import { serviceAreas } from "../../data/serviceAreas";
 import { useFadeUp } from "../../hooks/useFadeUp";
-import { serviceSchema } from "../../lib/schema";
+import { serviceSchema, faqPageSchema, breadcrumbListSchema } from "../../lib/schema";
 
 interface ServiceDetailPageProps {
   service: Service;
@@ -26,23 +26,25 @@ export default function ServiceDetailPage({ service }: ServiceDetailPageProps) {
   const areasRef = useFadeUp<HTMLDivElement>();
   const faqRef = useFadeUp<HTMLDivElement>();
 
+  const breadcrumbItems = [
+    { label: "Home", href: "/" },
+    { label: "Services", href: "/decking-services" },
+    { label: service.shortName },
+  ];
+
   return (
     <>
       <PageMeta
         title={`${service.shortName} San Antonio | ${business.name}`}
         description={service.description}
         path={`/${service.slug}`}
-        schema={serviceSchema(service)}
-      />
-      <PageHero
-        title={service.name}
-        subtitle={service.heroSubtitle}
-        breadcrumbItems={[
-          { label: "Home", href: "/" },
-          { label: "Services", href: "/decking-services" },
-          { label: service.shortName },
+        schema={[
+          serviceSchema(service),
+          faqPageSchema(service.faqs),
+          breadcrumbListSchema(breadcrumbItems, `/${service.slug}`),
         ]}
       />
+      <PageHero title={service.name} subtitle={service.heroSubtitle} breadcrumbItems={breadcrumbItems} />
 
       {/* About */}
       <section className="section bg-white">

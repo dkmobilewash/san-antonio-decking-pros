@@ -5,7 +5,7 @@ import CtaSection from "../components/CtaSection";
 import { business } from "../data/business";
 import { blogPosts } from "../data/blogPosts";
 import { useFadeUp } from "../hooks/useFadeUp";
-import { localBusinessSchema } from "../lib/schema";
+import { localBusinessSchema, breadcrumbListSchema } from "../lib/schema";
 
 function formatDate(dateString: string) {
   return new Date(`${dateString}T00:00:00`).toLocaleDateString("en-US", {
@@ -14,6 +14,8 @@ function formatDate(dateString: string) {
     day: "numeric",
   });
 }
+
+const breadcrumbItems = [{ label: "Home", href: "/" }, { label: "Blog" }];
 
 export default function BlogIndex() {
   const gridRef = useFadeUp<HTMLDivElement>();
@@ -24,12 +26,12 @@ export default function BlogIndex() {
         title={`Decking Tips & Guides | ${business.name} Blog`}
         description="Practical guides on deck materials, costs, maintenance, and permitting from San Antonio Decking Pros."
         path="/blog"
-        schema={localBusinessSchema()}
+        schema={[localBusinessSchema(), breadcrumbListSchema(breadcrumbItems, "/blog")]}
       />
       <PageHero
         title="Decking Tips & Guides"
         subtitle="Real answers on materials, costs, maintenance, and permitting from a San Antonio deck builder."
-        breadcrumbItems={[{ label: "Home", href: "/" }, { label: "Blog" }]}
+        breadcrumbItems={breadcrumbItems}
       />
 
       <section className="section bg-white">

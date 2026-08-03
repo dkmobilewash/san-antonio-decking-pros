@@ -1,3 +1,13 @@
+/**
+ * Server-only mirror of App.tsx's route table using eager imports instead
+ * of React.lazy(). This file is never bundled for the browser — it's only
+ * loaded by entry-server.tsx via Vite's SSR module runner during the
+ * prerender build step (see scripts/prerender.mjs). React's renderToString
+ * does not wait on Suspense-driven lazy imports, so a non-lazy route table
+ * is required for synchronous server rendering.
+ *
+ * Keep this route list in sync with App.tsx.
+ */
 import { Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 
@@ -27,15 +37,7 @@ import LiveOak from "./pages/serviceAreas/LiveOak";
 import UniversalCity from "./pages/serviceAreas/UniversalCity";
 import ServiceAreaComboPage from "./pages/combos/ServiceAreaComboPage";
 
-// Route components are imported eagerly rather than via React.lazy().
-// React's SSR APIs (renderToString/hydrateRoot) don't support lazy +
-// Suspense for route-level code splitting — combining them produces
-// hydration mismatches, since the prerendered HTML (rendered eagerly,
-// see AppRoutesEager.tsx) never suspends but the client's first
-// hydration pass would. Vendor code (React, framer-motion, Supabase)
-// is still split into separate cacheable chunks via manualChunks in
-// vite.config.ts, which captures the bulk of the bundle-size win.
-function App() {
+export default function AppRoutesEager() {
   return (
     <Routes>
       <Route element={<Layout />}>
@@ -74,5 +76,3 @@ function App() {
     </Routes>
   );
 }
-
-export default App;

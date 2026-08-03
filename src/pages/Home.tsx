@@ -10,7 +10,7 @@ import { business } from "../data/business";
 import { services } from "../data/services";
 import { serviceAreas } from "../data/serviceAreas";
 import { useFadeUp } from "../hooks/useFadeUp";
-import { localBusinessSchema } from "../lib/schema";
+import { localBusinessSchema, faqPageSchema } from "../lib/schema";
 
 const process = [
   {
@@ -67,14 +67,11 @@ export default function Home() {
         title={`Deck Builder San Antonio | ${business.name}`}
         description="Licensed San Antonio deck builders specializing in custom wood and composite decks, repairs, and outdoor living structures. Free estimates."
         path="/"
-        schema={localBusinessSchema()}
+        schema={[localBusinessSchema(), faqPageSchema(faqs)]}
       />
 
       {/* Hero */}
-      <section
-        className="relative text-white"
-        style={{ background: "linear-gradient(135deg, var(--color-navy) 0%, #2A4E70 100%)" }}
-      >
+      <section className="relative text-white page-hero-gradient">
         <div className="container-page py-20 md:py-28 text-center">
           <span className="inline-block font-heading uppercase tracking-[0.2em] text-xs md:text-sm text-gold-lt font-semibold">
             San Antonio, TX &middot; Licensed &amp; Insured

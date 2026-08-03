@@ -14,6 +14,7 @@ export interface BlogPost {
   tag: string;
   readTime: string;
   content: BlogSection[];
+  relatedServiceSlugs: string[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -79,6 +80,7 @@ export const blogPosts: BlogPost[] = [
         text: "The honest takeaway: material choice matters, but soil, height, and railing complexity usually move the final number more than most homeowners expect going in.",
       },
     ],
+    relatedServiceSlugs: ["deck-design-installation", "composite-decking"],
   },
   {
     slug: "composite-vs-wood-decking-comparison",
@@ -127,6 +129,7 @@ export const blogPosts: BlogPost[] = [
         text: "Rule of thumb: if you enjoy yard work and want the lowest upfront cost, wood is a great choice. If your priority is spending weekends on the deck instead of maintaining it, composite pays for itself in time saved.",
       },
     ],
+    relatedServiceSlugs: ["composite-decking", "deck-design-installation"],
   },
   {
     slug: "how-often-reseal-deck-texas-heat",
@@ -174,6 +177,7 @@ export const blogPosts: BlogPost[] = [
         text: "Composite decking sidesteps this maintenance cycle entirely, which is one of the main reasons homeowners switch materials when it's time for a full rebuild rather than another repair.",
       },
     ],
+    relatedServiceSlugs: ["deck-staining-sealing", "composite-decking"],
   },
   {
     slug: "signs-your-deck-needs-repair",
@@ -218,6 +222,7 @@ export const blogPosts: BlogPost[] = [
         text: "If you notice any of these, get a structural inspection before spending money on a refinish. Cosmetic work on a deck with an underlying structural issue is money spent covering up a problem instead of solving it.",
       },
     ],
+    relatedServiceSlugs: ["deck-repair-restoration"],
   },
   {
     slug: "cedar-vs-pressure-treated-pine",
@@ -261,6 +266,7 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
+    relatedServiceSlugs: ["deck-design-installation", "deck-staining-sealing"],
   },
   {
     slug: "deck-permit-requirements-san-antonio",
@@ -313,6 +319,7 @@ export const blogPosts: BlogPost[] = [
         text: "Building without a required permit can create real problems at resale — unpermitted structures often have to be disclosed and can hold up a sale or trigger a retroactive permit and inspection process. It's rarely worth the shortcut.",
       },
     ],
+    relatedServiceSlugs: ["deck-design-installation"],
   },
   {
     slug: "best-pool-deck-materials",
@@ -352,6 +359,7 @@ export const blogPosts: BlogPost[] = [
         text: "Proper drainage and airflow underneath the deck matter just as much as material choice — even the best board will hold moisture and develop mildew if water can't drain away from the structure.",
       },
     ],
+    relatedServiceSlugs: ["pool-deck-construction", "composite-decking"],
   },
   {
     slug: "prep-deck-for-texas-summer",
@@ -400,6 +408,7 @@ export const blogPosts: BlogPost[] = [
         text: "If your walkthrough turns up anything beyond surface wear — movement, soft spots, or rust — get it inspected before summer entertaining season puts more load and more feet on the deck.",
       },
     ],
+    relatedServiceSlugs: ["deck-staining-sealing", "deck-repair-restoration"],
   },
 ];
 

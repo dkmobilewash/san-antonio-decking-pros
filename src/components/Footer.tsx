@@ -7,7 +7,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer style={{ backgroundColor: "var(--color-navy-dark)" }} className="text-white">
+    <footer className="bg-navy-dark text-white">
       <div className="container-page py-14">
         <div
           className="grid gap-10"
@@ -83,7 +83,7 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="container-page py-5 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-white/50">
-          <span>
+          <span suppressHydrationWarning>
             &copy; {year} {business.name}. All rights reserved.
           </span>
           <span>{business.license}</span>
