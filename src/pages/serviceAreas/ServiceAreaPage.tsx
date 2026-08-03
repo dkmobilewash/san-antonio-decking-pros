@@ -2,11 +2,10 @@ import PageMeta from "../../components/PageMeta";
 import PageHero from "../../components/PageHero";
 import SectionEyebrow from "../../components/SectionEyebrow";
 import ServiceCard from "../../components/ServiceCard";
-import ProcessSteps from "../../components/ProcessSteps";
 import FaqAccordion from "../../components/FaqAccordion";
 import CtaSection from "../../components/CtaSection";
-import YouMayAlsoNeed from "../../components/YouMayAlsoNeed";
 import DeckImagePlaceholder from "../../components/DeckImagePlaceholder";
+import { Link } from "react-router-dom";
 import { business } from "../../data/business";
 import { services } from "../../data/services";
 import type { ServiceArea } from "../../data/serviceAreas";
@@ -17,42 +16,12 @@ interface ServiceAreaPageProps {
   area: ServiceArea;
 }
 
-const process = [
-  { title: "Site Visit", description: "We walk your property and take measurements specific to your lot's terrain and soil." },
-  { title: "Design & Permit", description: "We design around local requirements and file for permits with the correct jurisdiction." },
-  { title: "Build", description: "Our crew builds on a written schedule, coordinated around local HOA or inspection timing." },
-  { title: "Final Inspection", description: "We pass final inspection and walk the finished project with you." },
-];
-
 export default function ServiceAreaPage({ area }: ServiceAreaPageProps) {
-  const introRef = useFadeUp<HTMLDivElement>();
+  const aboutRef = useFadeUp<HTMLDivElement>();
+  const caseStudiesRef = useFadeUp<HTMLDivElement>();
+  const whyNumberOneRef = useFadeUp<HTMLDivElement>();
   const servicesRef = useFadeUp<HTMLDivElement>();
-  const processRef = useFadeUp<HTMLDivElement>();
   const faqRef = useFadeUp<HTMLDivElement>();
-  const allServicesRef = useFadeUp<HTMLDivElement>();
-
-  const topServices = services.filter((service) => area.topServices.includes(service.name));
-
-  const faqs = [
-    {
-      question: `Do you build decks in ${area.name}?`,
-      answer: `Yes — ${area.name} is one of our regularly served areas. ${area.why}`,
-    },
-    {
-      question: `What permits are required for a deck in ${area.name}?`,
-      answer: area.localNotes,
-    },
-    {
-      question: `What decking material works best for ${area.name} homes?`,
-      answer:
-        "It depends on your sun exposure and maintenance preference — composite decking is popular for its low upkeep, while cedar and pressure-treated pine remain strong, budget-friendly choices. We'll recommend the best fit during your free consultation.",
-    },
-    {
-      question: `How long does a typical deck project take in ${area.name}?`,
-      answer:
-        "Most single-level decks take 1–2 weeks to build once permits are approved, though jurisdiction-specific permit timelines can add to the overall schedule. We'll give you a realistic date range in your written estimate.",
-    },
-  ];
 
   return (
     <>
@@ -72,66 +41,85 @@ export default function ServiceAreaPage({ area }: ServiceAreaPageProps) {
         ]}
       />
 
+      {/* About decking in this area */}
       <section className="section bg-white">
         <div className="container-page">
-          <div ref={introRef} className="fade-up grid gap-12 lg:grid-cols-2 items-center">
+          <div ref={aboutRef} className="fade-up grid gap-12 lg:grid-cols-2 items-start">
             <div>
-              <SectionEyebrow eyebrow="Local Expertise" heading={`Building Decks in ${area.name}`} />
-              <p className="mt-6 text-mid text-[17px]">{area.intro}</p>
-              <p className="mt-4 text-mid text-[17px]">{area.why}</p>
+              <SectionEyebrow eyebrow="Local Expertise" heading={`Decking in ${area.name}, TX`} />
+              <div className="mt-6 space-y-4">
+                {area.aboutDecking.map((paragraph) => (
+                  <p key={paragraph.slice(0, 24)} className="text-mid text-[17px]">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             </div>
-            <DeckImagePlaceholder label={`Recent Project — ${area.name}, TX`} />
+            <div>
+              <DeckImagePlaceholder label={`Recent Project — ${area.name}, TX`} />
+              <div className="mt-6 bg-cream border border-rule rounded-sm p-6">
+                <p className="font-serif italic text-lg text-navy">"{area.tagline}"</p>
+                <Link to="/free-estimate-san-antonio" className="btn-primary mt-5">
+                  Get Free Estimate
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
+      {/* Case studies */}
       <section className="section bg-cream">
         <div className="container-page">
-          <div ref={servicesRef} className="fade-up">
+          <div ref={caseStudiesRef} className="fade-up">
             <SectionEyebrow
-              eyebrow="Popular in This Area"
-              heading={`Top Services in ${area.name}`}
+              eyebrow="Case Studies"
+              heading={`Recent Project Spotlights in ${area.name}`}
               align="center"
             />
-            <div className="mt-10 grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))" }}>
-              {topServices.map((service) => (
-                <ServiceCard
-                  key={service.slug}
-                  title={service.shortName}
-                  description={service.description}
-                  href={`/${service.slug}/${area.slug}`}
-                />
+            <div className="mt-10 grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))" }}>
+              {area.caseStudies.map((caseStudy) => (
+                <div key={caseStudy.title} className="bg-white border-t-4 border-gold rounded-sm p-7 shadow-sm">
+                  <h3 className="text-navy">{caseStudy.title}</h3>
+                  <p className="mt-3 text-mid text-[15px]">{caseStudy.description}</p>
+                  <p className="mt-4 text-charcoal text-[15px]">
+                    <span className="font-heading font-semibold uppercase text-xs tracking-wide text-gold">
+                      Result:{" "}
+                    </span>
+                    {caseStudy.result}
+                  </p>
+                </div>
               ))}
             </div>
           </div>
         </div>
       </section>
 
+      {/* Why we're #1 */}
       <section className="section bg-white">
         <div className="container-page">
-          <div ref={processRef} className="fade-up">
-            <SectionEyebrow eyebrow="What to Expect" heading="Our Local Process" align="center" />
-            <div className="mt-10">
-              <ProcessSteps steps={process} />
+          <div ref={whyNumberOneRef} className="fade-up">
+            <SectionEyebrow
+              eyebrow="Local Authority"
+              heading={`What Makes ${business.name} #1 in ${area.name}`}
+              align="center"
+            />
+            <div className="mt-10 grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
+              {area.whyNumberOne.map((point) => (
+                <div key={point.title} className="bg-cream border border-rule rounded-sm p-6">
+                  <h3 className="text-navy">{point.title}</h3>
+                  <p className="mt-3 text-mid text-[15px]">{point.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
+      {/* Services showcase */}
       <section className="section bg-cream">
-        <div className="container-page max-w-3xl">
-          <div ref={faqRef} className="fade-up">
-            <SectionEyebrow eyebrow="Common Questions" heading="Frequently Asked Questions" align="center" />
-            <div className="mt-10">
-              <FaqAccordion items={faqs} />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section bg-white">
         <div className="container-page">
-          <div ref={allServicesRef} className="fade-up">
+          <div ref={servicesRef} className="fade-up">
             <SectionEyebrow
               eyebrow="Full Service List"
               heading={`Every Service We Offer in ${area.name}`}
@@ -151,7 +139,17 @@ export default function ServiceAreaPage({ area }: ServiceAreaPageProps) {
         </div>
       </section>
 
-      <YouMayAlsoNeed />
+      {/* FAQ */}
+      <section className="section bg-white">
+        <div className="container-page max-w-3xl">
+          <div ref={faqRef} className="fade-up">
+            <SectionEyebrow eyebrow="Common Questions" heading="Frequently Asked Questions" align="center" />
+            <div className="mt-10">
+              <FaqAccordion items={area.faqs} />
+            </div>
+          </div>
+        </div>
+      </section>
 
       <CtaSection
         heading={`Ready to Build in ${area.name}?`}
