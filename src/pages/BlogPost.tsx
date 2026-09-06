@@ -103,8 +103,30 @@ export default function BlogPost() {
           <div ref={contentRef} className="fade-up">
             {post.content.map((section, index) => renderSection(section, index))}
 
-            {post.relatedServiceSlugs.length > 0 && (
+            {post.relatedPostSlugs.length > 0 && (
               <div className="mt-10 bg-cream border border-rule rounded-sm p-6">
+                <h3 className="text-navy">Related Reading</h3>
+                <ul className="mt-4 space-y-2">
+                  {post.relatedPostSlugs.map((relatedSlug) => {
+                    const relatedPost = getBlogPostBySlug(relatedSlug);
+                    if (!relatedPost) return null;
+                    return (
+                      <li key={relatedSlug}>
+                        <Link
+                          to={`/blog/${relatedPost.slug}`}
+                          className="text-gold hover:text-gold-lt font-semibold"
+                        >
+                          {relatedPost.title} &rarr;
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+
+            {post.relatedServiceSlugs.length > 0 && (
+              <div className="mt-6 bg-cream border border-rule rounded-sm p-6">
                 <h3 className="text-navy">Related Services</h3>
                 <ul className="mt-4 space-y-2">
                   {post.relatedServiceSlugs.map((slug) => {
