@@ -52,8 +52,8 @@ export default function ServiceAreaComboPage() {
   return (
     <>
       <PageMeta
-        title={`${service.shortName} in ${area.name}, TX | ${business.name}`}
-        description={`${service.description} Serving homeowners in ${area.name}, TX. Free estimates from a licensed San Antonio deck builder.`}
+        title={`${service.shortName} in ${area.name}, TX | ${business.shortName}`}
+        description={`${service.shortName} for ${area.name}, TX homeowners — licensed, insured, free written estimates from a local San Antonio crew.`}
         path={`/${service.slug}/${area.slug}`}
         schema={[
           serviceAreaComboSchema(service, area),
