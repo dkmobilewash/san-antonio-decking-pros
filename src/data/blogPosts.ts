@@ -730,7 +730,11 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     relatedServiceSlugs: ["deck-design-installation", "pool-deck-construction"],
-    relatedPostSlugs: ["deck-cost-san-antonio-pricing-guide", "how-long-does-it-take-to-build-a-deck"],
+    relatedPostSlugs: [
+      "deck-cost-san-antonio-pricing-guide",
+      "how-long-does-it-take-to-build-a-deck",
+      "best-pool-deck-materials",
+    ],
   },
 ];
 
