@@ -19,6 +19,7 @@ export default function ServiceAreaComboPage() {
   const area = areaSlug ? getServiceAreaBySlug(areaSlug) : undefined;
 
   const introRef = useFadeUp<HTMLDivElement>();
+  const whyNumberOneRef = useFadeUp<HTMLDivElement>();
   const processRef = useFadeUp<HTMLDivElement>();
   const faqRef = useFadeUp<HTMLDivElement>();
   const otherServicesRef = useFadeUp<HTMLDivElement>();
@@ -38,6 +39,7 @@ export default function ServiceAreaComboPage() {
       question: `What should I know about ${service.shortName.toLowerCase()} projects in ${area.name}?`,
       answer: area.localNotes,
     },
+    ...area.faqs,
   ];
 
   const otherServices = services.filter((s) => s.slug !== service.slug);
@@ -94,6 +96,26 @@ export default function ServiceAreaComboPage() {
                 <p className="mt-3 text-mid text-[15px]">{area.tagline}</p>
                 <p className="mt-3 text-mid text-[15px]">{area.intro}</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section bg-white">
+        <div className="container-page">
+          <div ref={whyNumberOneRef} className="fade-up">
+            <SectionEyebrow
+              eyebrow="Local Authority"
+              heading={`What Makes ${business.name} #1 in ${area.name}`}
+              align="center"
+            />
+            <div className="mt-10 grid gap-6" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))" }}>
+              {area.whyNumberOne.map((point) => (
+                <div key={point.title} className="bg-cream border border-rule rounded-sm p-6">
+                  <h3 className="text-navy">{point.title}</h3>
+                  <p className="mt-3 text-mid text-[15px]">{point.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
