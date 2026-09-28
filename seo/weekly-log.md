@@ -70,3 +70,60 @@ closed one gap in the blog's internal linking. Flagged the combo pages'
 content depth as a larger initiative rather than rushing it.
 
 ---
+
+## 2026-09-28 — Second run
+
+**Semrush:** Still not available — same "plan doesn't include MCP access"
+response as last week (checked `overview_research`). Not re-checking every
+endpoint each week; will re-verify weekly until it changes. Still needs
+the plan upgrade at https://www.semrush.com/mcp-access — this is the
+second week in a row with zero ranking/traffic visibility.
+
+**Checked:** Re-read last week's entry first so I didn't redo settled
+analysis. Followed up specifically on the "combo page content depth" item
+flagged last week rather than re-running the same broad sweep.
+
+**Fixed and deployed (commits `371d87f` on both the working branch and
+`main`):**
+1. **Combo page content depth — resolved without new content generation.**
+   `src/data/serviceAreas.ts` already has genuine, unique per-area content
+   that was never wired into the 54 combo pages: `whyNumberOne` (4
+   differentiators per area) and `faqs` (4 area-specific FAQs per area).
+   The standalone location pages (`ServiceAreaPage.tsx`) already used
+   both; the combo page template (`ServiceAreaComboPage.tsx`) used
+   neither. Added a "What Makes [business] #1 in [area]" section
+   (identical proven copy/markup to the location pages) and merged
+   `area.faqs` into the combo FAQ list — 4 → 8 FAQs per combo page, richer
+   `FAQPage` schema. This is real previously-authored content, not
+   templated filler, so it resolves last week's flag without the
+   54-pages-of-new-copy project I was avoiding rushing.
+   - Deliberately left out `area.caseStudies` on combo pages: each case
+     study is written about one specific service, and matching it
+     correctly to an arbitrary combo page's service isn't a safe
+     automated pairing (e.g. showing a cedar-deck case study on a "Pool
+     Decks in X" page). Case studies stay on the location pages only,
+     where they're already correctly scoped to the whole area rather
+     than one service.
+2. Verified no internal duplicate FAQ text got introduced by the merge
+   (checked all 9 areas for repeated `question` strings — none found),
+   and sitemap.xml / robots.txt both still generate correctly (89 URLs).
+
+**Flagged for human review (not auto-committed, unchanged from before):**
+- **Semrush plan gap** — now 2 weeks running with no rank/traffic data.
+- **Sitemap/canonical domain.** `business.ts`'s `baseUrl` is still
+  `sanantoniodeckingpros.com`, which is what every canonical URL, OG tag,
+  and the sitemap.xml itself is built from — separate from `business.ts`
+  changes being out of scope for this routine to touch, this was flagged
+  as an open discrepancy earlier in this project against the actual live
+  domain and doesn't look resolved. Worth confirming which domain is
+  truly canonical and fixing it deliberately, since it affects how GSC
+  and every search engine understands the site's own URLs.
+
+**Bottom line for this week:** Still no ranking data (Semrush). Resolved
+last week's biggest flagged item — the 54 combo pages now surface real,
+previously-written local content instead of sitting thin — without
+writing a single line of new marketing copy, just wiring up content that
+already existed. Re-flagging the domain/sitemap discrepancy since it's
+been open a while and is worth a deliberate fix.
+
+---
