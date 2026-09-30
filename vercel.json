@@ -5,8 +5,8 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "www.sanantoniodeckingpros.com" }],
-      "destination": "https://sanantoniodeckingpros.com/$1",
+      "has": [{ "type": "host", "value": "www.deckingprossanantonio.com" }],
+      "destination": "https://deckingprossanantonio.com/$1",
       "permanent": true
     }
   ],
