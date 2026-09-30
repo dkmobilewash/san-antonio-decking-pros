@@ -127,3 +127,25 @@ already existed. Re-flagging the domain/sitemap discrepancy since it's
 been open a while and is worth a deliberate fix.
 
 ---
+
+## 2026-09-30 — Out-of-band fix (user-directed, not a scheduled run)
+
+The user confirmed `deckingprossanantonio.com` as the actual canonical
+domain and asked directly for the `baseUrl` fix flagged in the last two
+entries. This wasn't a scheduled Monday run, but logging it here since
+it resolves a standing flagged item and this routine should know not to
+keep re-flagging it.
+
+**Fixed and deployed (commit `a7aad40`):** `business.ts`'s `baseUrl` and
+`ogImage`, `index.html`'s OG/Twitter image tags, and `vercel.json`'s
+www-redirect host/destination all updated from `sanantoniodeckingpros.com`
+to `deckingprossanantonio.com`. Verified post-build: sitemap.xml,
+robots.txt, canonical tags, and OG tags across the built site all now
+point at the correct domain (checked homepage + a spot-check page).
+
+**Left unchanged, flagged separately:** `business.ts`'s `email` field is
+still `info@sanantoniodeckingpros.com`. That's a live mailbox, not a
+URL-construction value — out of scope to change without confirming a
+matching inbox exists on the new domain first.
+
+---
