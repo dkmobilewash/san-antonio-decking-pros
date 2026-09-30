@@ -15,8 +15,8 @@ export const business = {
   license: "TX Home Improvement Contractor Lic. #TXHIC-48291",
   yearsInBusiness: 18,
   founded: 2007,
-  baseUrl: "https://sanantoniodeckingpros.com",
-  ogImage: "https://sanantoniodeckingpros.com/og-image.png",
+  baseUrl: "https://deckingprossanantonio.com",
+  ogImage: "https://deckingprossanantonio.com/og-image.png",
   geo: {
     latitude: 29.539,
     longitude: -98.409,
